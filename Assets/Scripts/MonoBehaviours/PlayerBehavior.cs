@@ -8,6 +8,8 @@ public class PlayerBehavior : MonoBehaviour
     private Rigidbody2D myRigidBody;
     private Vector3 change;
     private Animator animator;
+    public Vector2 maxPosition;
+    public Vector2 minPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +43,7 @@ public class PlayerBehavior : MonoBehaviour
 
     void MoveCharacter()
     {
-        myRigidBody.MovePosition(transform.position + change * speed * Time.deltaTime);
+        myRigidBody.MovePosition(new Vector3(Mathf.Clamp(transform.position.x + change.x * speed * Time.deltaTime, minPosition.x, maxPosition.x), 
+                                            Mathf.Clamp(transform.position.y + change.y * speed * Time.deltaTime, minPosition.y, maxPosition.y)));
     }
 }
