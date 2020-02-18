@@ -12038,9 +12038,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 822090880}
-  smoothing: 0.4
-  maxPosition: {x: 12.5, y: 12.5}
-  minPosition: {x: -11.5, y: -3.5}
+  smoothing: 0.9
+  maxPosition: {x: 12.55, y: 12.4}
+  minPosition: {x: -11.55, y: -3.4}
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -12092,7 +12092,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 12.55, y: 12.4, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -12620,7 +12620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d57b0ebf8bd1e2c45a0a5a9b778b68a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 12
+  speed: 15
   maxPosition: {x: 25, y: 20}
   minPosition: {x: -25, y: -10}
 --- !u!61 &822090877
@@ -12728,7 +12728,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 822090875}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 15, y: 12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
