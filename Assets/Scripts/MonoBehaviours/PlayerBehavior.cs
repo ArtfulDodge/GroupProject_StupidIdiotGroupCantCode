@@ -10,7 +10,7 @@ public class PlayerBehavior : MonoBehaviour
     private Animator animator;
     public Vector2 maxPosition;
     public Vector2 minPosition;
-    public Animator heart1Animator;
+    public int health = 6;
 
     // Start is called before the first frame update
     void Start()
@@ -50,9 +50,8 @@ public class PlayerBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        float blend = heart1Animator.GetFloat("Blend");
-        blend -= 0.5f;
-
-        heart1Animator.SetFloat("Blend", blend);
+        if (collision.gameObject.tag == "Enemy") {
+            health -= 1;
+        }
     }
 }
