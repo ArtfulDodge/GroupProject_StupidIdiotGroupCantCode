@@ -10,6 +10,7 @@ public class PlayerBehavior : MonoBehaviour
     private Animator animator;
     public Vector2 maxPosition;
     public Vector2 minPosition;
+    public Animator heart1Animator;
 
     // Start is called before the first frame update
     void Start()
@@ -45,5 +46,13 @@ public class PlayerBehavior : MonoBehaviour
     {
         myRigidBody.MovePosition(new Vector3(Mathf.Clamp(transform.position.x + change.x * speed * Time.deltaTime, minPosition.x, maxPosition.x), 
                                             Mathf.Clamp(transform.position.y + change.y * speed * Time.deltaTime, minPosition.y, maxPosition.y)));
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        float blend = heart1Animator.GetFloat("Blend");
+        blend -= 0.5f;
+
+        heart1Animator.SetFloat("Blend", blend);
     }
 }
