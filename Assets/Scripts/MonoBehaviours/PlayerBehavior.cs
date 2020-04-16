@@ -10,6 +10,7 @@ public class PlayerBehavior : MonoBehaviour
     private Animator animator;
     public Vector2 maxPosition;
     public Vector2 minPosition;
+    public int health = 6;
 
     // Start is called before the first frame update
     void Start()
@@ -47,5 +48,10 @@ public class PlayerBehavior : MonoBehaviour
                                             Mathf.Clamp(transform.position.y + change.y * speed * Time.deltaTime, minPosition.y, maxPosition.y)));
     }
 
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy") {
+            health -= 1;
+        }
+    }
 }
