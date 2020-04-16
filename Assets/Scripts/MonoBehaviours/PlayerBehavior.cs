@@ -46,4 +46,6 @@ public class PlayerBehavior : MonoBehaviour
         myRigidBody.MovePosition(new Vector3(Mathf.Clamp(transform.position.x + change.x * speed * Time.deltaTime, minPosition.x, maxPosition.x), 
                                             Mathf.Clamp(transform.position.y + change.y * speed * Time.deltaTime, minPosition.y, maxPosition.y)));
     }
+
+
 }
