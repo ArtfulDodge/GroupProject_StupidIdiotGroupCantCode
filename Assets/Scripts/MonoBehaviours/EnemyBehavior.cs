@@ -7,17 +7,23 @@ public class EnemyBehavior : MonoBehaviour
     public float speed;
     private Waypoints waypoints;
     private int waypointIndex;
+    private Animator animator;
 
     // Start is called before the first frame update
     void Start()
     {
         waypoints = GameObject.FindGameObjectWithTag("Waypoints").GetComponent<Waypoints>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3 change = transform.position;
         transform.position = Vector2.MoveTowards(transform.position, waypoints.waypoints[waypointIndex].position, speed * Time.deltaTime);
+        change = transform.position - change;
+        animator.SetFloat("moveX", change.x);
+        animator.SetFloat("moveY", change.y);
 
         if (Vector2.Distance(transform.position, waypoints.waypoints[waypointIndex].position) < 0.1f)
         {
