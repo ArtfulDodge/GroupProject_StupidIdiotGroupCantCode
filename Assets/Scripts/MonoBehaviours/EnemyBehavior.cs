@@ -42,13 +42,20 @@ public class EnemyBehavior : MonoBehaviour
     public float DistanceToGoal()
     {
         float distance = 0;
-        distance += Vector2.Distance(gameObject.transform.position, waypoints.waypoints[waypointIndex + 1].transform.position);
-        for (int i = waypointIndex + 1; i < waypoints.waypoints.Length - 1; i++)
+        if (waypointIndex < waypoints.waypoints.Length - 1)
         {
-            Vector3 startPosition = waypoints.waypoints[i].transform.position;
-            Vector3 endPosition = waypoints.waypoints[i + 1].transform.position;
-            distance += Vector2.Distance(startPosition, endPosition);
+            distance += Vector2.Distance(gameObject.transform.position, waypoints.waypoints[waypointIndex + 1].transform.position);
+            for (int i = waypointIndex + 1; i < waypoints.waypoints.Length - 1; i++)
+            {
+                Vector3 startPosition = waypoints.waypoints[i].transform.position;
+                Vector3 endPosition = waypoints.waypoints[i + 1].transform.position;
+                distance += Vector2.Distance(startPosition, endPosition);
+            }
+        } else
+        {
+            distance += Vector2.Distance(gameObject.transform.position, waypoints.waypoints[waypointIndex].transform.position);
         }
+        
         return distance;
     }
 }

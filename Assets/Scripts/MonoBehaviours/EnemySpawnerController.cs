@@ -9,6 +9,7 @@ public class EnemySpawnerController : MonoBehaviour
     public int startingEnemiesPerWave;
     private int enemiesInWave;
     public float spawnRate;
+    public float betweenWaveTime;
     private float nextSpawn = 0.0f;
     private Vector2 whereToSpawn;
     private int enemies;
@@ -20,7 +21,7 @@ public class EnemySpawnerController : MonoBehaviour
         whereToSpawn = new Vector2(20, 21);
         enemiesInWave = startingEnemiesPerWave;
         enemies = 0;
-        nextSpawn = Time.time + 10;
+        nextSpawn = Time.time;
     }
 
     // Update is called once per frame
@@ -32,7 +33,11 @@ public class EnemySpawnerController : MonoBehaviour
         {
             enemies = 0;
             enemiesInWave++;
-            nextSpawn = Time.time + 10;
+            nextSpawn = Time.time + betweenWaveTime;
+            if (enemiesInWave % 5 == 0 && betweenWaveTime > 1)
+            {
+                betweenWaveTime--;
+            }
         }
 
         if (Time.time > nextSpawn && enemies < enemiesInWave)

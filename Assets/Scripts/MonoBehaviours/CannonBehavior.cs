@@ -1,19 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CannonBehavior : MonoBehaviour
 {
     public List<GameObject> enemiesInRange;
+    public GameObject player;
     private float lastShotTime;
     public float fireRate;
+    public float projectileSpeed = 10f;
     public GameObject projectile;
+    public bool grabable;
+    public bool grabbed;
+    public int level = 1;
+    public Text CannonLevelText;
 
     // Start is called before the first frame update
     void Start()
     {
         enemiesInRange = new List<GameObject>();
         lastShotTime = Time.time;
+        grabable = false;
+        grabbed = false;
+
+        ProjectileBehavior pb = projectile.GetComponent<ProjectileBehavior>();
+        pb.speed = projectileSpeed;
     }
 
     // Update is called once per frame
@@ -32,7 +44,7 @@ public class CannonBehavior : MonoBehaviour
             }
         }
         
-        if (target != null)
+        if (target != null && !grabbed)
         {
             if (Time.time - lastShotTime > fireRate)
             {
@@ -42,6 +54,42 @@ public class CannonBehavior : MonoBehaviour
             
             Vector3 direction = gameObject.transform.position - target.transform.position;
             gameObject.transform.rotation = Quaternion.AngleAxis(Mathf.Atan2(direction.y, direction.x) * 180 / Mathf.PI, new Vector3(0, 0, 1));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && grabable)
+        {
+            grabbed = !grabbed;
+        }
+
+        if (grabbed)
+        {
+            Vector3 newPosition = player.transform.position;
+            newPosition.y = newPosition.y + 1.5f;
+            transform.position = newPosition;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Upgrade();
+        }
+    }
+
+    void Upgrade()
+    {
+        if (CoinBehavior.coinsGathered >= 5 && level < 9)
+        {
+            level++;
+            CannonLevelText.text = "Cannon Level: " + level.ToString();
+            CoinBehavior.coinsGathered -= 5;
+            if (fireRate > 0.1f)
+                fireRate -= 0.1f;
+
+            ProjectileBehavior pb = projectile.GetComponent<ProjectileBehavior>();
+
+            if (projectileSpeed < 100)
+                projectileSpeed += 5;
+
+            pb.speed = projectileSpeed;
         }
     }
 

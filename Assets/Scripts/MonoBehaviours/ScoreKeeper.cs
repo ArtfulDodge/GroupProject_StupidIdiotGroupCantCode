@@ -10,12 +10,19 @@ public class ScoreKeeper : MonoBehaviour
     public Text txtScore;
     public static int coinsGathered = 0;
     public static int score = 0;
+    public GameObject[] trees;
 
 
     // Start is called before the first frame update
     void Start()
     {
         txtScore.text = "Score: " + score.ToString();
+        trees = GameObject.FindGameObjectsWithTag("TreeTop");
+        foreach (GameObject tree in trees)
+        {
+            TreeDestructionDelegate del = tree.gameObject.GetComponent<TreeDestructionDelegate>();
+            del.treeDelegate += OnTreeDestroy;
+        }
     }
 
     // Update is called once per frame
@@ -23,10 +30,29 @@ public class ScoreKeeper : MonoBehaviour
     {
         if (CoinBehavior.coinsGathered > coinsGathered)
         {
-            coinsGathered = CoinBehavior.coinsGathered;
             score += 100;
         }
 
+        coinsGathered = CoinBehavior.coinsGathered;
         txtScore.text = "Score: " + score.ToString();
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag.Equals("Enemy"))
+        {
+            EnemyDestructionDelegate del = other.gameObject.GetComponent<EnemyDestructionDelegate>();
+            del.enemyDelegate += OnEnemyDestroy;
+        }
+    }
+
+    void OnEnemyDestroy(GameObject enemy)
+    {
+        score += 500;
+    }
+
+    void OnTreeDestroy(GameObject tree)
+    {
+        score -= 500;
     }
 }
