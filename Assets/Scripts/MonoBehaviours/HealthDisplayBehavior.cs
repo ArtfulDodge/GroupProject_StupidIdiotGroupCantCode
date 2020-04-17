@@ -23,7 +23,7 @@ public class HealthDisplayBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //playerHealth = player.GetComponent<PlayerBehavior>().health;
+        playerHealth = player.GetComponent<PlayerBehavior>().health;
         if (playerHealth >= fullValue)
         {
             render.sprite = hearts[0];
