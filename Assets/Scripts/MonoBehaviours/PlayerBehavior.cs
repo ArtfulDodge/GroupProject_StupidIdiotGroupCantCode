@@ -1,16 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public float speed;
+    public float speed = 10;
     private Rigidbody2D myRigidBody;
     private Vector3 change;
     private Animator animator;
+    private Stopwatch stopwatch = new Stopwatch();
+    private bool invuln = false;
+    private bool healthRegening = false;
     public Vector2 maxPosition;
     public Vector2 minPosition;
     public int health = 6;
+    public long maxInvulnTime = 250;
+    private long elapsedTime;
+    public long healthRegenSpeed = 1000;
 
     // Start is called before the first frame update
     void Start()
@@ -22,10 +29,47 @@ public class PlayerBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        change = Vector3.zero;
-        change.x = Input.GetAxisRaw("Horizontal");
-        change.y = Input.GetAxisRaw("Vertical");
-        UpdateAnimationAndMove();
+        if (!healthRegening)
+        {
+            change = Vector3.zero;
+            change.x = Input.GetAxisRaw("Horizontal");
+            change.y = Input.GetAxisRaw("Vertical");
+            UpdateAnimationAndMove();
+
+            if (invuln)
+            {
+                stopwatch.Stop();
+                elapsedTime = stopwatch.ElapsedMilliseconds;
+                if (elapsedTime >= maxInvulnTime)
+                {
+                    stopwatch.Reset();
+                    invuln = false;
+                }
+                else
+                {
+                    stopwatch.Start();
+                }
+            }
+        } else
+        {
+            stopwatch.Stop();
+            elapsedTime = stopwatch.ElapsedMilliseconds;
+            if (elapsedTime >= healthRegenSpeed)
+            {
+                health = health + 1;
+            }
+
+            if (health >= 6)
+            {
+                health = 6;
+                healthRegening = false;
+                invuln = false;
+                stopwatch.Reset();
+            } else
+            {
+                stopwatch.Start();
+            }
+        }
     }
 
     void UpdateAnimationAndMove()
@@ -51,7 +95,19 @@ public class PlayerBehavior : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy") {
-            health -= 1;
+            if (!invuln)
+            {
+                health -= 1;
+                invuln = true;
+
+                if (health <= 0)
+                {
+                    health = 0;
+                    healthRegening = true;
+                }
+
+                stopwatch.Start();
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 863083575756338945}
   m_Layer: 0
   m_Name: tree_top
-  m_TagString: Untagged
+  m_TagString: TreeTop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1269615203
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4a6c9493fd15abc488a23996064abe5e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -171,3 +171,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitbox: {fileID: 7248404691639532617}
   triggerbox: {fileID: 2328362134730028095}
+  gameOverText: {fileID: 0}
+  txtTreesLeft: {fileID: 0}
