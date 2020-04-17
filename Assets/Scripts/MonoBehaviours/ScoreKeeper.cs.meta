@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 85d444b0ea5b2e74f8b7a8d3c633b909
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - coin: {fileID: 4229778701773467855, guid: 247d3bbf7967ffe46b2a7153ab0cf7f9, type: 3}
+  - txtScore: {instanceID: 0}
+  - coinsScore: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
