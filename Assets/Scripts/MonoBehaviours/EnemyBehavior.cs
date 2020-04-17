@@ -6,7 +6,6 @@ public class EnemyBehavior : MonoBehaviour
 {
     public float speed;
     private Waypoints waypoints;
-
     private int waypointIndex;
 
     // Start is called before the first frame update
@@ -38,5 +37,18 @@ public class EnemyBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public float DistanceToGoal()
+    {
+        float distance = 0;
+        distance += Vector2.Distance(gameObject.transform.position, waypoints.waypoints[waypointIndex + 1].transform.position);
+        for (int i = waypointIndex + 1; i < waypoints.waypoints.Length - 1; i++)
+        {
+            Vector3 startPosition = waypoints.waypoints[i].transform.position;
+            Vector3 endPosition = waypoints.waypoints[i + 1].transform.position;
+            distance += Vector2.Distance(startPosition, endPosition);
+        }
+        return distance;
     }
 }

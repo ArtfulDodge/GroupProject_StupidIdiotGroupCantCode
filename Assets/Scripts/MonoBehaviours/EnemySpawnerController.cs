@@ -20,6 +20,7 @@ public class EnemySpawnerController : MonoBehaviour
         whereToSpawn = new Vector2(20, 21);
         enemiesInWave = startingEnemiesPerWave;
         enemies = 0;
+        nextSpawn = Time.time + 10;
     }
 
     // Update is called once per frame
