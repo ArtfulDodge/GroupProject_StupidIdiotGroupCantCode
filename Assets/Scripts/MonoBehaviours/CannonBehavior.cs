@@ -15,6 +15,8 @@ public class CannonBehavior : MonoBehaviour
     public bool grabbed;
     public int level = 1;
     public Text CannonLevelText;
+    public int requiredCoins;
+    public Text priceText;
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +28,7 @@ public class CannonBehavior : MonoBehaviour
 
         ProjectileBehavior pb = projectile.GetComponent<ProjectileBehavior>();
         pb.speed = projectileSpeed;
+        priceText.text = "Coins for next level: " + requiredCoins.ToString();
     }
 
     // Update is called once per frame
@@ -76,7 +79,7 @@ public class CannonBehavior : MonoBehaviour
 
     void Upgrade()
     {
-        if (CoinBehavior.coinsGathered >= 5 && level < 9)
+        if (CoinBehavior.coinsGathered >= requiredCoins && level < 9)
         {
             level++;
             CannonLevelText.text = "Cannon Level: " + level.ToString();
@@ -90,6 +93,8 @@ public class CannonBehavior : MonoBehaviour
                 projectileSpeed += 5;
 
             pb.speed = projectileSpeed;
+            requiredCoins = 4 + level;
+            priceText.text = "Coins for next level: " + requiredCoins.ToString();
         }
     }
 
