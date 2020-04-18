@@ -47,6 +47,13 @@ public class PlayerBehavior : MonoBehaviour
                 }
                 else
                 {
+                    if (elapsedTime % 100 <= 50)
+                    { 
+                        GetComponent<SpriteRenderer>().color = Color.red;
+                    } else
+                    {
+                        GetComponent<SpriteRenderer>().color = Color.white;
+                    }
                     stopwatch.Start();
                 }
             }
@@ -54,9 +61,20 @@ public class PlayerBehavior : MonoBehaviour
         {
             stopwatch.Stop();
             elapsedTime = stopwatch.ElapsedMilliseconds;
+
+            if (elapsedTime % 250 <= 150)
+            {
+                GetComponent<SpriteRenderer>().color = Color.red;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().color = Color.white;
+            }
+
             if (elapsedTime >= healthRegenSpeed)
             {
                 health = health + 1;
+                stopwatch.Reset();
             }
 
             if (health >= 6)
@@ -64,6 +82,7 @@ public class PlayerBehavior : MonoBehaviour
                 health = 6;
                 healthRegening = false;
                 invuln = false;
+                GetComponent<SpriteRenderer>().color = Color.white;
                 stopwatch.Reset();
             } else
             {
@@ -109,5 +128,10 @@ public class PlayerBehavior : MonoBehaviour
                 stopwatch.Start();
             }
         }
+    }
+
+    public Vector3 GetChange()
+    {
+        return change;
     }
 }

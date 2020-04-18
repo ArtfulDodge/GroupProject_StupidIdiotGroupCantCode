@@ -7,10 +7,12 @@ public class CoinBehavior : MonoBehaviour
 {
     public Text txtCoinsCollected;
     public static int coinsGathered = 0;
+    private bool collected;
 
     void Start()
     {
         txtCoinsCollected.text = "Coins: " + coinsGathered.ToString();
+        collected = false;
     }
 
     void Update()
@@ -20,8 +22,9 @@ public class CoinBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !collected)
         {
+            collected = true;
             increaseCount();
             txtCoinsCollected.text = "Coins: " + coinsGathered.ToString();
             Destroy(gameObject);

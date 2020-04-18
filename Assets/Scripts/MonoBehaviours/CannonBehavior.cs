@@ -17,6 +17,8 @@ public class CannonBehavior : MonoBehaviour
     public Text CannonLevelText;
     public int requiredCoins;
     public Text priceText;
+    public GameObject preview;
+    private GameObject ghost;
 
     // Start is called before the first frame update
     void Start()
@@ -62,6 +64,20 @@ public class CannonBehavior : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && grabable)
         {
             grabbed = !grabbed;
+
+            if (grabbed)
+            {
+                GetComponent<SpriteRenderer>().enabled = false;
+                ghost = (GameObject)Instantiate(preview);
+                ghost.transform.rotation = transform.rotation;
+            }
+
+            if (!grabbed)
+            {
+                GetComponent<SpriteRenderer>().enabled = true;
+                transform.position = ghost.transform.position;
+                Destroy(ghost);
+            }
         }
 
         if (grabbed)
@@ -69,6 +85,12 @@ public class CannonBehavior : MonoBehaviour
             Vector3 newPosition = player.transform.position;
             newPosition.y = newPosition.y + 1.5f;
             transform.position = newPosition;
+
+            Vector3 ghostPosition = player.transform.position;
+            Animator playerAnim = player.GetComponent<Animator>();
+            ghostPosition.x += playerAnim.GetFloat("moveX");
+            ghostPosition.y += playerAnim.GetFloat("moveY");
+            ghost.transform.position = ghostPosition;
         }
 
         if (Input.GetKeyDown(KeyCode.E))
@@ -83,7 +105,7 @@ public class CannonBehavior : MonoBehaviour
         {
             level++;
             CannonLevelText.text = "Cannon Level: " + level.ToString();
-            CoinBehavior.coinsGathered -= 5;
+            CoinBehavior.coinsGathered -= requiredCoins;
             if (fireRate > 0.1f)
                 fireRate -= 0.1f;
 
@@ -93,7 +115,22 @@ public class CannonBehavior : MonoBehaviour
                 projectileSpeed += 5;
 
             pb.speed = projectileSpeed;
-            requiredCoins = 4 + level;
+            if (level < 7)
+            {
+                if (level % 2 == 0) {
+                    requiredCoins += 1;
+                } else {
+                    requiredCoins += 2;
+                }
+            }
+            if (level == 7)
+            {
+                requiredCoins = 15;
+            }
+            if (level == 8)
+            {
+                requiredCoins = 20;
+            }
             priceText.text = "Coins for next level: " + requiredCoins.ToString();
         }
     }

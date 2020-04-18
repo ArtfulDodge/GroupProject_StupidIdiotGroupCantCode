@@ -167,6 +167,8 @@ MonoBehaviour:
   level: 1
   CannonLevelText: {fileID: 0}
   requiredCoins: 5
+  priceText: {fileID: 0}
+  preview: {fileID: 682270596036744939, guid: 779424a1f7769064c9f266cdf07a3aff, type: 3}
 --- !u!58 &6996403413276989703
 CircleCollider2D:
   m_ObjectHideFlags: 0
