@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class PlayerBehavior : MonoBehaviour
 {
-    public float speed = 10;
+    public float speed = 7.75f;
     private Rigidbody2D myRigidBody;
     private Vector3 change;
     private Animator animator;
@@ -27,7 +27,7 @@ public class PlayerBehavior : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!healthRegening)
         {
@@ -107,8 +107,9 @@ public class PlayerBehavior : MonoBehaviour
 
     void MoveCharacter()
     {
-        myRigidBody.MovePosition(new Vector3(Mathf.Clamp(transform.position.x + change.x * speed * Time.deltaTime, minPosition.x, maxPosition.x), 
-                                            Mathf.Clamp(transform.position.y + change.y * speed * Time.deltaTime, minPosition.y, maxPosition.y)));
+        float dist = speed * Time.fixedDeltaTime;
+        myRigidBody.MovePosition(new Vector3(Mathf.Clamp(transform.position.x + change.x * dist, minPosition.x, maxPosition.x), 
+                                            Mathf.Clamp(transform.position.y + change.y * dist, minPosition.y, maxPosition.y)));
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
